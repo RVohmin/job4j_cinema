@@ -9,38 +9,28 @@ import java.util.Objects;
  * @since 10.08.2020
  */
 public class Halls {
-    private String row;
-    private String seat;
-    private int userID;
+    private int id;
+    private int seat;
 
-    public Halls(String row, String seat, int userID) {
-        this.row = row;
+    public Halls(int id, int seat) {
         this.seat = seat;
-        this.userID = userID;
+        this.id = id;
     }
 
-    public String getRow() {
-        return row;
-    }
-
-    public void setRow(String row) {
-        this.row = row;
-    }
-
-    public String getSeat() {
+    public int getSeat() {
         return seat;
     }
 
-    public void setSeat(String seat) {
+    public void setSeat(int seat) {
         this.seat = seat;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getId() {
+        return id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -52,13 +42,12 @@ public class Halls {
             return false;
         }
         Halls halls = (Halls) o;
-        return getUserID() == halls.getUserID()
-                && Objects.equals(getRow(), halls.getRow())
+        return getId() == halls.getId()
                 && Objects.equals(getSeat(), halls.getSeat());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getRow(), getSeat(), getUserID());
+        return Objects.hash(getSeat(), getId());
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,60 +14,75 @@
 <body>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+    setInterval(() => (function () {
+        $.get("http://localhost:8080/job4j_cinema/hall", function (responseJson) {    // Execute Ajax GET request on URL of "someservlet" and execute the following function with Ajax response JSON...
+            $.each(responseJson, function (index, item) { // Iterate over the JSON array.
+                let element = $("#" + item);
+                element.closest('td').text("Билет куплен");
+            });
+        });
+    }()), 100);
+
     function goJs() {
-        window.location = "http://localhost:63342/job4j_cinema/src/main/webapp/WEB-INF/payment.html"
+        let inputElement = $('input[name=place]:checked');
+        if (inputElement.length < 1) {
+            alert("выберите место")
+            return false;
+        }
+        window.location.href = "http://localhost:8080/job4j_cinema/payment.html?text="
+            + inputElement.val();
     }
 </script>
 <div class="container">
     <div class="row pt-3">
-        <h4>
-            Бронирование месте на сеанс
-        </h4>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th style="width: 120px;">Ряд / Место</th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th>1</th>
-                <td><input type="radio" name="place" value="11"> Ряд 1, Место 1></td>
-                <td><input type="radio" name="place" value="12"> Ряд 1, Место 2></td>
-                <td><input type="radio" name="place" value="13"> Ряд 1, Место 3></td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td><input type="radio" name="place" value="21"> Ряд 2, Место 1></td>
-                <td><input type="radio" name="place" value="22"> Ряд 2, Место 2></td>
-                <td><input type="radio" name="place" value="23"> Ряд 2, Место 3></td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td><input type="radio" name="place" value="31"> Ряд 3, Место 1></td>
-                <td><input type="radio" name="place" value="32"> Ряд 3, Место 2></td>
-                <td><input type="radio" name="place" value="33"> Ряд 3, Место 3></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row float-right">
-        <button type="submit" class="btn btn-success" onclick="goJs()">Оплатить</button>
-    </div>
-</div>
+        <form>
+            <h4 style="text-align: center">Бронирование мест на сеанс</h4>
 
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th style="width: 120px;">Ряд / Место</th>
+                    <th style="text-align: center">1</th>
+                    <th style="text-align: center">2</th>
+                    <th style="text-align: center">3</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th style="text-align: center">1</th>
+                    <td><input type="radio" name="place" value="11" id="11"> Ряд 1, Место 1</td>
+                    <td><input type="radio" name="place" value="12" id="12"> Ряд 1, Место 2</td>
+                    <td><input type="radio" name="place" value="13" id="13"> Ряд 1, Место 3</td>
+                </tr>
+                <tr>
+                    <th style="text-align: center">2</th>
+                    <td><input type="radio" name="place" value="21" id="21"> Ряд 2, Место 1</td>
+                    <td><input type="radio" name="place" value="22" id="22"> Ряд 2, Место 2</td>
+                    <td><input type="radio" name="place" value="23" id="23"> Ряд 2, Место 3</td>
+                </tr>
+                <tr>
+                    <th style="text-align: center">3</th>
+                    <td><input type="radio" name="place" value="31" id="31"> Ряд 3, Место 1</td>
+                    <td><input type="radio" name="place" value="32" id="32"> Ряд 3, Место 2</td>
+                    <td><input type="radio" name="place" value="33" id="33"> Ряд 3, Место 3</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row float-right">
+                <button type="button" class="btn btn-success" onclick="return goJs()">Оплатить</button>
+            </div>
+        </form>
+    </div>
+
+</div>
 </body>
 </html>

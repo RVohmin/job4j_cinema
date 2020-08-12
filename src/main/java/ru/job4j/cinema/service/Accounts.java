@@ -9,12 +9,32 @@ import java.util.Objects;
  * @since 10.08.2020
  */
 public class Accounts {
+    private int id;
     private String username;
     private String phone;
+    private int seatId;
 
-    public Accounts(String username, String phone) {
+    public Accounts(int id, String username, String phone, int seatId) {
+        this.id = id;
         this.username = username;
         this.phone = phone;
+        this.seatId = seatId;
+    }
+
+    public int getSeatId() {
+        return seatId;
+    }
+
+    public void setSeatId(int seatId) {
+        this.seatId = seatId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -31,6 +51,16 @@ public class Accounts {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Accounts{"
+                + "id=" + id
+                + ", username='" + username + '\''
+                + ", phone='" + phone + '\''
+                + ", seatId=" + seatId
+                + '}';
     }
 
     @Override
