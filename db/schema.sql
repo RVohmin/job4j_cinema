@@ -8,6 +8,6 @@ CREATE TABLE accounts
     id      SERIAL PRIMARY KEY,
     name    TEXT not null,
     phone   TEXT not null,
-    seat_id int REFERENCES halls (id)
+    seat_id int not null REFERENCES halls (id)
 );
 -- alter table halls add column account_id int references accounts (id);
