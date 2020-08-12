@@ -1,13 +1,13 @@
 CREATE TABLE halls
 (
     id   SERIAL PRIMARY KEY,
-    seat TEXT
+    seat int not null
 );
 CREATE TABLE accounts
 (
     id      SERIAL PRIMARY KEY,
-    name    TEXT,
-    phone   TEXT,
+    name    TEXT not null,
+    phone   TEXT not null,
     seat_id int REFERENCES halls (id)
 );
 -- alter table halls add column account_id int references accounts (id);
