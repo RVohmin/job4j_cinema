@@ -57,7 +57,7 @@
     </dependencies>
 
     <build>
-        <finalName>job4j_dreamjob</finalName>
+        <finalName>job4j_cinema</finalName>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>

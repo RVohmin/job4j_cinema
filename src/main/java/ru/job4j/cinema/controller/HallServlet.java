@@ -2,9 +2,9 @@ package ru.job4j.cinema.controller;
 
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
-import ru.job4j.cinema.persistence.PSQLStore;
-import ru.job4j.cinema.service.Accounts;
-import ru.job4j.cinema.service.Halls;
+import ru.job4j.cinema.service.PSQLStore;
+import ru.job4j.cinema.persistence.Accounts;
+import ru.job4j.cinema.persistence.Halls;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

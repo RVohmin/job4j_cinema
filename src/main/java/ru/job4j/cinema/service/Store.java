@@ -1,7 +1,7 @@
-package ru.job4j.cinema.persistence;
+package ru.job4j.cinema.service;
 
-import ru.job4j.cinema.service.Accounts;
-import ru.job4j.cinema.service.Halls;
+import ru.job4j.cinema.persistence.Accounts;
+import ru.job4j.cinema.persistence.Halls;
 
 import java.util.Collection;
 

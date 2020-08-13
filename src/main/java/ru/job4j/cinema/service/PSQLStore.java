@@ -1,11 +1,11 @@
-package ru.job4j.cinema.persistence;
+package ru.job4j.cinema.service;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import ru.job4j.cinema.service.Accounts;
-import ru.job4j.cinema.service.Halls;
+import ru.job4j.cinema.controller.HallServlet;
+import ru.job4j.cinema.persistence.Accounts;
+import ru.job4j.cinema.persistence.Halls;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,19 +25,23 @@ public class PSQLStore implements Store {
 
     private PSQLStore() {
         Properties cfg = new Properties();
-        try (BufferedReader io = new BufferedReader(
-                new FileReader("/Users/romanvohmin/projects/job4j_cinema/db.properties")
-        )) {
+        try (InputStream io = Thread.currentThread()
+                        .getContextClassLoader()
+                        .getResourceAsStream("psql.properties");
+        ) {
             cfg.load(io);
         } catch (Exception e) {
+            System.out.println("cfg load Error");
+            e.printStackTrace();
             throw new IllegalStateException(e);
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (Exception e) {
-            System.out.println("Driver Error");
+            e.printStackTrace();
             throw new IllegalStateException(e);
         }
+        HallServlet.LOGGER.info("cfg " + cfg.toString());
         pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
         pool.setUrl(cfg.getProperty("jdbc.url"));
         pool.setUsername(cfg.getProperty("jdbc.username"));
@@ -45,7 +49,6 @@ public class PSQLStore implements Store {
         pool.setMinIdle(5);
         pool.setMaxIdle(10);
         pool.setMaxOpenPreparedStatements(100);
-
     }
 
     private static final class Lazy {
@@ -55,22 +58,6 @@ public class PSQLStore implements Store {
     public static Store instOf() {
         return Lazy.INST;
     }
-
-//    public Collection<Halls> findAllHalls() {
-//        List<Halls> halls = new ArrayList<>();
-//        try (Connection cn = pool.getConnection();
-//             PreparedStatement ps = cn.prepareStatement("SELECT * FROM halls")
-//        ) {
-//            try (ResultSet it = ps.executeQuery()) {
-//                while (it.next()) {
-//                    halls.add(new Halls(it.getInt("id"), it.getInt("seat")));
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return halls;
-//    }
 
     @Override
     public Collection<Integer> findSeatsFromHalls() {
@@ -87,7 +74,6 @@ public class PSQLStore implements Store {
             e.printStackTrace();
         }
         return seats;
-
     }
 
     @Override
